@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>永不消逝的倒计时</title>
+<style type="text/css">
+	.content{
+		font-size: 20px;
+		font-weight: bold;
+		width: 500px;
+		margin:0 auto;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<div class="content">
+现在是<span id="nowTime"></span><br/>
+距离<span id="nextYear"></span>年还有<span id="LeftTime"></span>
+</div>
+<script>
+window.onload=function(){
+	showTime();
+	var sh=setInterval(showTime,1000);
+	function showTime(){
+		var nowTime=new Date();
+		var y = nowTime.getFullYear();
+		var m = nowTime.getMonth()+1;
+		var d = nowTime.getDate();
+		var h = nowTime.getHours();
+		var m1 = nowTime.getMinutes();
+		var s = nowTime.getSeconds();
+		var w = nowTime.getDay();
+		var weekday = new Array(7);
+		weekday[0] = '星期日';
+		weekday[1] = '星期一';
+		weekday[2] = '星期二';
+		weekday[3] = '星期三';
+		weekday[4] = '星期四';
+		weekday[5] = '星期五';
+		weekday[6] = '星期六';
+		if(s<10){
+			s='0'+s;
+		}
+		if(m1<10){
+			m1='0'+m1;
+		}
+		if(h<10){
+			h='0'+h;
+		}
+		document.getElementById('nowTime').innerHTML=y+'年'+m+'月'+d+'日'+weekday[w]+' '+h+':'+m1+':'+s;
+
+		var nextYear=y+1;//获取下一年
+		document.getElementById('nextYear').innerHTML=nextYear;
+
+		var endTime=new Date(nextYear+"/01/01,00:00:01");
+		var leftTime=endTime-nowTime;
+		var day=parseInt(leftTime/(1000*60*60*24));
+		var hours=parseInt(leftTime/(1000*60*60)%24);
+		var minutes=parseInt(leftTime/(1000*60)%60);
+		var seconds=parseInt(leftTime/1000%60);
+		document.getElementById("LeftTime").innerHTML=day+'天'+hours+'小时'+minutes+'分钟'+seconds+'秒';
+
+	}
+		
+}
+</script>
+</body>
+</html>
